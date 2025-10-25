@@ -23,4 +23,9 @@ public class StudentServiceImpl implements StudentService {
                 .toList();
         return studentDtoList;
     }
+
+    @Override
+    public StudentDto getStudentById(Long id) {
+        Student student=return studentRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Student not found with id " + id));
+    }
 }
