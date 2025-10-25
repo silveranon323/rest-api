@@ -1,26 +1,30 @@
 package com.tutorial.restapi_tutorial.controller;
 
 import com.tutorial.restapi_tutorial.dto.StudentDto;
-import com.tutorial.restapi_tutorial.entity.Student;
-import com.tutorial.restapi_tutorial.repository.StudentRepository;
+import com.tutorial.restapi_tutorial.service.StudentService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class StudentController {
-    StudentRepository studentRepository;
+    private final StudentService studentService;
 
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+
+
+    @GetMapping("/students ")
+    public List<StudentDto> getAllStudents(){
+        return studentService.getAllStudents();
     }
-
-    @GetMapping("/student")
-    public List<Student> getStudent(){
-        return studentRepository.findAll();
+    @GetMapping("/student/{id}/{name}")
+    public String getStudentById(@PathVariable Long id,@PathVariable String name){
+        return  "pathvariable" + id + "name is " + name;
     }
-
 
 
 }
